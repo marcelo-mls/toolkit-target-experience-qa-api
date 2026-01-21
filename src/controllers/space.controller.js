@@ -20,11 +20,13 @@ async function getAllSpaceContent(req, res) {
     }
 
     const activitiesPromises = requestedActivities.map(async (activityOverview) => {
-      const activityDetails = await services.fetchAdobeAPI('activity', token, activityOverview.id, activityOverview.type);
+      const activityOverviewType = activityOverview.type.replace(/_/g, '').toLowerCase();
+
+      const activityDetails = await services.fetchAdobeAPI('activity', token, activityOverview.id, activityOverviewType);
 
       if(activityDetails.error_code || activityDetails.errors) {
         activityDetails['id'] = activityOverview.id,
-        activityDetails['type'] = activityOverview.type;
+        activityDetails['type'] = activityOverviewType;
         console.error(activityDetails);
         return activityDetails;
       }

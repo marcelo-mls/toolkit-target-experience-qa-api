@@ -41,7 +41,13 @@ async function fetchAdobeAPI(endpointName, token, id=null, type=null) {
   // https://experienceleague.adobe.com/pt-br/docs/target-dev/developer/api/target-api-overview
   // https://developers.adobetarget.com/api/#admin-postman-collection
   
-  const version = ['audience', 'audiences'].includes(endpointName) ? 'v3' : 'v2';
+  let version = 'v2';
+
+  if (['activity'].includes(endpointName) && type === 'autoallocate') {
+    version = 'v1';
+  } else if (['audience', 'audiences'].includes(endpointName)) {
+    version = 'v3';
+  }
 
   const headers = {
     'Authorization': `Bearer ${token}`,

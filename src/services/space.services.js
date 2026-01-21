@@ -114,7 +114,7 @@ function buildCompleteActivity(activityDetails, activityOverview, audienceList) 
     );
 
     if (correspondingExperience) {
-      const audienceIds = activityOverview.type === 'ab' ? correspondingExperience.mbox.audienceIds : correspondingExperience.audienceIds;
+      const audienceIds = activityOverview.type === 'xt' ? correspondingExperience.audienceIds : correspondingExperience.mbox.audienceIds;
 
       return { 
         ...option,
